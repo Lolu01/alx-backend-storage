@@ -2,6 +2,6 @@
 """module that defines list_all function"""
 
 
-def list_all(mongo_collection):
+def insert_school(mongo_collection, **kwargs):
     """lists all documents in a collection"""
-    return mongo_collection.find()
+    return result.inserted_id
