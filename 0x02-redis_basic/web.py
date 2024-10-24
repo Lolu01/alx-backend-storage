@@ -12,7 +12,7 @@ from functools import wraps
 redis_instance = redis.Redis()
 
 
-def cach_data(method: Callable) -> Callable:
+def cache_data(method: Callable) -> Callable:
     """
     Decorator that counts the number of calls to a method using Redis.
     """
@@ -29,13 +29,12 @@ def cach_data(method: Callable) -> Callable:
         if res:
             return res.decode('utf-8')
         res = method(url)
-        redis_instance.set(count_key, 0)
         redis_instance.setex(res_key, expiration_time, res)
         return res
     return inc
 
 
-@cach_data
+@cache_data
 def get_page(url: str) -> str:
     """
     Fetches the content of the given URL and returns it as a string.
