@@ -14,12 +14,14 @@ redis_instance = redis.Redis()
 
 def cache_data(method: Callable) -> Callable:
     """
-    Decorator that counts the number of calls to a method using Redis.
+    Decorator that counts the number of calls to a method using Redis
+    and caches the result for a specific period.
     """
     @wraps(method)
     def inc(url: str) -> str:
         """
-        Increments the value of a Redis key and then calls the given method.
+        Increments the value of a Redis key and then calls the given method
+        Caches the result of the method for a certain period.
         """
         count_key = f"count:{url}"
         res_key = f"result:{url}"
